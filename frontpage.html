@@ -1,0 +1,450 @@
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+            background-attachment: fixed;
+        }
+        .paper-grain {
+            background-image: url("https://www.transparenttextures.com/patterns/handmade-paper.png");
+            pointer-events: none;
+        }
+        .ornamental-border {
+            border-image: linear-gradient(to right, transparent, #70585b 50%, transparent) 1;
+            border-bottom-width: 1px;
+        }
+        .soft-whisper {
+            box-shadow: 0 10px 30px -10px rgba(60, 47, 47, 0.06);
+        }
+        .diamond-divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(112, 88, 91, 0.2);
+            z-index: 1;
+        }
+        .diamond-icon {
+            position: relative;
+            z-index: 2;
+            background: #fff8f7;
+            padding: 0 12px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e3e2e0",
+                        "on-surface": "#241919",
+                        "surface-tint": "#5e5f5d",
+                        "on-tertiary-fixed": "#2f1316",
+                        "secondary-fixed-dim": "#debfc2",
+                        "tertiary-container": "#fff7f6",
+                        "on-secondary-fixed": "#281719",
+                        "primary": "#5e5f5d",
+                        "outline-variant": "#c5c7c3",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#c7c6c4",
+                        "on-secondary-fixed-variant": "#574144",
+                        "surface-container": "#ffe9e8",
+                        "inverse-surface": "#3a2d2d",
+                        "secondary-fixed": "#fbdbde",
+                        "primary-fixed-dim": "#c7c6c4",
+                        "outline": "#757874",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#fff8f7",
+                        "surface": "#fff8f7",
+                        "primary-container": "#faf9f6",
+                        "on-background": "#241919",
+                        "surface-container-high": "#f9e3e3",
+                        "tertiary-fixed-dim": "#ebbabd",
+                        "surface-dim": "#ead5d5",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#f3dedd",
+                        "secondary": "#70585b",
+                        "on-secondary-container": "#755d5f",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#ffedec",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#ffdadb",
+                        "background": "#fff8f7",
+                        "on-primary-fixed-variant": "#464745",
+                        "secondary-container": "#f8d8db",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#727270",
+                        "on-tertiary-fixed-variant": "#603d40",
+                        "on-tertiary-container": "#90686b",
+                        "surface-variant": "#f3dedd",
+                        "surface-container-low": "#fff0f0",
+                        "on-surface-variant": "#444844",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#1a1c1a",
+                        "tertiary": "#7a5457"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max-width": "1120px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "stack-md": "24px",
+                        "margin-page": "64px",
+                        "stack-lg": "48px",
+                        "stack-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Montserrat"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-sm": ["Montserrat"],
+                        "headline-md": ["Playfair Display"],
+                        "label-lg": ["Montserrat"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-sm": ["Playfair Display"],
+                        "body-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["10px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "label-lg": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "display-lg": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-container selection:text-secondary">
+<div class="fixed inset-0 paper-grain opacity-50 z-[-1]"></div>
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-page py-unit h-16 bg-background/90 backdrop-blur-sm border-b border-secondary/20">
+<div class="font-headline-md text-headline-md text-primary italic">Aedes Elysiae</div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="font-label-lg text-label-lg text-primary border-b border-primary pb-1 transition-colors duration-300" href="#chronicle">Chronicle</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#dynasty">Dynasty</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#council">Council</a>
+<a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors duration-300" href="#decrees">Decrees</a>
+</div>
+<button class="bg-secondary text-on-secondary px-6 py-2 font-label-lg text-label-lg transition-colors hover:bg-secondary/90">Join the Nation</button>
+</nav>
+<main class="max-w-[1120px] mx-auto px-gutter md:px-0 pt-32 pb-stack-lg">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center mb-stack-lg">
+<span class="font-label-lg text-label-lg text-secondary uppercase tracking-[0.2em] mb-stack-sm">The Noble House Chronicle</span>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg md:font-display-lg text-on-surface mb-stack-sm max-w-3xl">Aedes Elysiae – An Elysian Nation of the Kupal Community SMP</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-md">New name, new world, same community, same map.</p>
+<div class="w-full max-w-2xl bg-surface-container-lowest border border-secondary/20 p-stack-md mb-stack-md relative soft-whisper">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-background px-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 0;">auto_awesome</span>
+</div>
+<p class="font-headline-sm text-headline-sm italic text-secondary">"Welcome! To a fresh start, to a brand new world!"</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant/80 mb-stack-md italic">Carrying the noble legacy of Ynares Compound and Ave Stellaris.</p>
+<div class="flex gap-gutter">
+<button class="bg-secondary text-on-secondary px-8 py-3 font-label-lg text-label-lg hover:opacity-90 transition-opacity">Meet the Founders</button>
+<button class="border border-secondary text-secondary px-8 py-3 font-label-lg text-label-lg hover:bg-secondary/5 transition-colors">View the Council</button>
+</div>
+</section>
+<!-- Divider -->
+<div class="relative w-full flex justify-center items-center my-stack-lg diamond-divider">
+<span class="material-symbols-outlined diamond-icon text-secondary/40" style="font-variation-settings: 'FILL' 0;">diamond</span>
+</div>
+<!-- Origins & Lore Section -->
+<section class="mb-stack-lg" id="chronicle">
+<h2 class="font-headline-md text-headline-md text-center mb-stack-lg">Origins of Aedes Elysiae</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-low p-stack-md border border-secondary/10 flex flex-col items-center text-center soft-whisper">
+<span class="font-label-lg text-label-lg text-secondary mb-2">ERA I</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">KRP MCVerse S2 C2</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The Unnamed Coalition: A strategic unification of Ynares and Ave Stellaris foundations.</p>
+</div>
+<div class="bg-surface-container-low p-stack-md border border-secondary/10 flex flex-col items-center text-center soft-whisper">
+<span class="font-label-lg text-label-lg text-secondary mb-2">ERA II</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">Season 3</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">The Baptism: Officially christened as Aedes Elysiae, entering the global stage of sovereign nations.</p>
+</div>
+<div class="bg-surface-container-low p-stack-md border border-secondary/10 flex flex-col items-center text-center soft-whisper">
+<span class="font-label-lg text-label-lg text-secondary mb-2">ERA III</span>
+<h3 class="font-headline-sm text-headline-sm mb-2">Current Epoch</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Kupal Community SMP Season 1: The current era of the journal and flourishing prosperity.</p>
+</div>
+</div>
+</section>
+<!-- Founders Section -->
+<section class="mb-stack-lg" id="dynasty">
+<h2 class="font-headline-md text-headline-md text-center mb-stack-lg">The Founding Trio</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- __Meth -->
+<div class="group relative bg-surface-container-lowest border border-secondary/20 p-stack-md transition-all duration-500 hover:border-secondary">
+<div class="h-64 mb-4 overflow-hidden bg-surface-dim">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A dignified, cinematic portrait of a high-fantasy nobleman in dark, tailored regalia. He is standing in a library with mahogany shelves and soft, warm sunlight filtering through dust motes. The aesthetic is sophisticated and quiet, reflecting a mood of distant authority and scholarly importance within the Aedes Elysiae aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSdZ6-iBWSci0zavJ0HXYe6vk6Nbz2LlP2BgLIN8DNILZKa2ueGNswhVKp43fvZlt3HYNZ2oVsTYoYKtgOIMpEG3dgc-CUM7uYXDctrefIm25jIpLNKx1jkx-UuDSupl_9LtTtdgAWtGUQvbg457aGcOJYN3q19jFYh9edznlJ6h6i852dF1GW2e40utnxuIKlBVht5l2H3vX1zdpaPNDtuTB7pNCFFc1fIzZcMirf1iJ4xeWk0oVq58TMiDB4d6fujLx5a0q1v2M"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">__Meth</h3>
+<p class="font-label-lg text-label-lg text-secondary uppercase tracking-widest mb-2">Founding Magistrate</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">(Currently inactive / busy IRL)</p>
+</div>
+<!-- __Sei -->
+<div class="group relative bg-surface-container-lowest border border-secondary/20 p-stack-md transition-all duration-500 hover:border-secondary">
+<div class="h-64 mb-4 overflow-hidden bg-surface-dim">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An elegant and airy portrait of a noblewoman in a cream silk dress, seated in a sun-drenched atrium filled with white flowers. The lighting is ethereal and high-key, maintaining the light-mode Elysian sanctuary vibe. Her expression is poised and hospitable, embodying the grace of the nation's First Lady." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdxRlcQSyY8DEApHKn8rOHM-Nmr8DLm-QmWm_egECRKJmR6ZFPF9HqYOeYbKNWbEKOsGE8ct8yBsgO1YrVqZIT3xsmSriQ1FyIo58-9yHDaHXbXYr_CcB4FaNp6PNe_ULHlmoACAAXKl2Q3ZZgIU7n8uWU7FrshP8ZNe3-6mOHExXyOa3L_7GDLaIVRhHeZUQyQBxSqTkcib5OrZtfywa4VJMfH8t2mVKrWCt_lpy2s9WIkmChag3DArjFxGQMGegcbs15a7qv0ao"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">__Sei</h3>
+<p class="font-label-lg text-label-lg text-secondary uppercase tracking-widest mb-2">Vice-Magistrate &amp; First Lady</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">(Currently busy IRL also)</p>
+</div>
+<!-- DefNotShiro -->
+<div class="group relative bg-surface-container-lowest border border-secondary/20 p-stack-md transition-all duration-500 hover:border-secondary">
+<div class="h-64 mb-4 overflow-hidden bg-surface-dim">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A portrait of a young noble co-founder in refined charcoal and gold-trimmed attire, standing against a backdrop of a misty mountain range during blue hour. The lighting is soft and contemplative, suggesting a legacy of strength and quiet dedication. The overall style is modern editorial with aristocratic gravitas." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8gAhI-eQdFERw3ZzoGDNXKZc2BqZdQVulF5jr-p6njvBY5zGIza6Yd0W154JT1-y1IEmSCUAtHgQUQpu4bX5D_dTBBJlNpngZjcxDYT8g9r-XQrhN8NaciqRp_yubrs1A9ETDh8iqMi0dzu_0XuG0HOfxUMc1t0o6fbCfdQtqGGUQZPAoow0Vr4m5296fPC_c3EiMKYenehnmPo1I24ZPbEcWvScOgqwFcKu2BbxY5Uai97VRRrjc8F08wz9OUFA2QDufSwRlKU8"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">DefNotShiro</h3>
+<p class="font-label-lg text-label-lg text-secondary uppercase tracking-widest mb-2">Co-founder</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic">(Currently busy IRL also)</p>
+</div>
+</div>
+</section>
+<!-- Leadership Transition (The Decree) -->
+<section class="mb-stack-lg" id="decrees">
+<div class="max-w-3xl mx-auto bg-surface-variant border border-secondary/30 p-12 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #70585b 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative z-10">
+<div class="flex flex-col items-center mb-stack-md">
+<span class="material-symbols-outlined text-secondary text-4xl mb-4" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">The Decree and New Leadership</h2>
+</div>
+<div class="space-y-4 font-body-lg text-body-lg text-on-surface text-center mb-stack-md leading-relaxed italic">
+<p>“I hereby decree seelenlied the acting founder of Elysiae (former Ynares) starting now and until further notice.”</p>
+<p>“All decisions and questions regarding Elysiae shall now be under his concern.”</p>
+<p>“Acting Co-Founder shall now be XenomiteGD, replacing __Meth.”</p>
+<p class="font-semibold text-secondary">“People of Elysiae, Our story has only begun! The memories live in the people of Elysiae, Long Live Elysia!”</p>
+</div>
+<div class="text-center">
+<p class="font-label-lg text-label-lg text-secondary tracking-widest">— __Sei</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant/70 mt-1">FORMER ELYSIAE FOUNDER</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-12 pt-8 border-t border-secondary/20">
+<div class="text-center md:text-left">
+<h4 class="font-headline-sm text-headline-sm mb-1">seelenlied</h4>
+<p class="font-label-lg text-label-lg text-secondary">Standing Magistrate</p>
+</div>
+<div class="text-center md:text-right">
+<h4 class="font-headline-sm text-headline-sm mb-1">XenomiteGD</h4>
+<p class="font-label-lg text-label-lg text-secondary">Standing Vice-Magistrate</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Titles & Honors -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-center mb-stack-lg">Titles of Elysian Nobility</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-unit">
+<!-- Frau Platin -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-slate-300"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">seelenlied</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU PLATIN</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">1st Authority</span>
+</div>
+<!-- Frau Aurum -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-amber-400"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">XenomiteGD</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU AURUM</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">Vice-Magistrate</span>
+</div>
+<!-- Frau Diamant -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-sky-200"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">KSMiracle</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU DIAMANT</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">1st Edel</span>
+</div>
+</div>
+<div class="flex flex-col gap-unit">
+<!-- Frau Saphir -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-blue-600"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">ANAFFYTAFFY</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU SAPHIR</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">2nd Edel</span>
+</div>
+<!-- Frau Améthyste -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-purple-500"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">KaiFloxol</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU AMÉTHYSTE</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">3rd Edel</span>
+</div>
+<!-- Frau Rubin -->
+<div class="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 hover:bg-white transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-rose-600"></div>
+<div>
+<p class="font-headline-sm text-headline-sm leading-tight">Gunnerlegend</p>
+<p class="font-label-sm text-label-sm text-secondary">FRAU RUBIN</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant italic">4th Edel</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Council Section -->
+<section class="mb-stack-lg bg-surface-container-low p-stack-lg border border-secondary/5" id="council">
+<h2 class="font-headline-md text-headline-md text-center mb-stack-sm">The Hoshigumi Council</h2>
+<p class="font-body-md text-body-md text-center text-on-surface-variant mb-stack-lg max-w-xl mx-auto">An advisory council of five Edels who stand as the pillars of the nation, supporting the Standing Magistrate in all matters of state.</p>
+<div class="flex flex-col items-center gap-stack-sm max-w-md mx-auto">
+<div class="w-full flex justify-between p-4 border border-secondary/10 bg-surface-container-lowest">
+<span class="font-label-lg text-label-lg text-secondary">1ST EDEL</span>
+<span class="font-headline-sm text-headline-sm">KSMiracle (SaintSteins)</span>
+</div>
+<div class="w-full flex justify-between p-4 border border-secondary/10 bg-surface-container-lowest">
+<span class="font-label-lg text-label-lg text-secondary">2ND EDEL</span>
+<span class="font-headline-sm text-headline-sm">ANAFFYTAFFY</span>
+</div>
+<div class="w-full flex justify-between p-4 border border-secondary/10 bg-surface-container-lowest">
+<span class="font-label-lg text-label-lg text-secondary">3RD EDEL</span>
+<span class="font-headline-sm text-headline-sm">KaiFloxol</span>
+</div>
+<div class="w-full flex justify-between p-4 border border-secondary/10 bg-surface-container-lowest">
+<span class="font-label-lg text-label-lg text-secondary">4TH EDEL</span>
+<span class="font-headline-sm text-headline-sm">Gunnerlegend</span>
+</div>
+<div class="w-full flex justify-between p-4 border border-secondary/10 bg-surface-container-lowest">
+<span class="font-label-lg text-label-lg text-secondary">5TH EDEL</span>
+<span class="font-headline-sm text-headline-sm">Pee_Highlighter</span>
+</div>
+</div>
+</section>
+<!-- Citizens Section -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-md text-headline-md text-center mb-2">People of Aedes Elysiae</h2>
+<p class="font-label-lg text-label-lg text-center text-secondary uppercase tracking-widest mb-stack-lg">The Elysian Companions and Citizens</p>
+<div class="flex flex-wrap justify-center gap-4">
+<!-- Names as chips -->
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">__METH</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">__SEI</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">SEELENLIED</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">KSMIRACLE</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">XENOMITEGD</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">ANAFFYTAFFY</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">KAIFLOXOL</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">MILKHYPE235</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">KLXYN</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">PEE_HIGHLIGHTER</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">GUNNERLEGEND</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">EDELWEISSE</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">TEIERI</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">EXTREMEMEN</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">HAKURIWAKURI</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5">FROSTTZY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant/60 text-center mt-6 italic">All members should be on the Discord server to get on the list here.</p>
+</section>
+<!-- Journal Section -->
+<section class="mb-stack-lg">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center bg-surface-container-lowest p-stack-lg border border-secondary/20 soft-whisper">
+<div class="relative group overflow-hidden h-96">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A macro photograph of an open, vintage leather-bound journal with creamy vellum pages. A classic fountain pen rests across the spine. The background is a soft-focus wooden desk in a room with warm, morning light, capturing the intimate and scholarly nature of the Magistrate’s Journal. High-end editorial photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0MqdhbjGopuYUdfaO6DFfbC-aRydb7_X0jPpn6ZZXe6ZkeAPpbHiqlmyGg1C6utfc4VGIpUlml3fp_O0Uve9Nh1T2la1LXFqqB1R0g3L0qskFUbo1abRZoETOQuwiRyFcVEl0HkJ0TxXe-wuxnS1pxw2O23y3PVyF2c_5YeR1MxN9L-M9bUDHKfOfBr7V3JmnCLntymijbxnCK71rB_QjtOrV0Vg8vtL_-if62CMYk7oMH2qqvG9FXpALu7nYXfcLLD7Mc6WOv1A"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Magistrate’s Journal</h2>
+<p class="font-label-lg text-label-lg text-secondary mb-4">SEASON 1 ENTRIES</p>
+<div class="space-y-4 font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
+<p>“The transition of seasons brings with it a quiet reflection. As I take the quill from my predecessors, I see not just names on a list, but the heartbeat of a community that has survived through three names and countless sunrises...”</p>
+<p>“Documentation is the bridge between our yesterday and the legends our children will tell. In this journal, I chronicle every brick laid in Season 1, every council meeting held in the moonlight, and every citizen who calls Elysiae home.”</p>
+</div>
+<button class="mt-8 font-label-lg text-label-lg text-secondary flex items-center gap-2 hover:translate-x-2 transition-transform">
+                        Read full entries <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-page flex flex-col items-center gap-stack-md bg-surface-container-lowest border-t border-secondary/10">
+<div class="font-headline-sm text-headline-sm text-secondary italic">Aedes Elysiae</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center max-w-lg italic">“The memories live in the people of Elysiae, Long Live Elysia.”</p>
+<div class="flex gap-gutter">
+<a class="font-label-sm text-label-sm text-secondary-fixed-variant hover:text-primary transition-colors" href="#">Lore</a>
+<a class="font-label-sm text-label-sm text-secondary-fixed-variant hover:text-primary transition-colors" href="#">Gallery</a>
+<a class="font-label-sm text-label-sm text-secondary-fixed-variant hover:text-primary transition-colors" href="#">Server Info</a>
+<a class="font-label-sm text-label-sm text-secondary-fixed-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<div class="mt-stack-md text-center">
+<p class="font-label-sm text-label-sm text-secondary-fixed-variant">A nation of the Kupal Community SMP</p>
+<p class="font-label-sm text-label-sm text-secondary-fixed-variant mt-1">Long Live Elysia — An Aristocratic Chronicle of the Aedes Nation</p>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for scroll effects
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+                nav.classList.add('bg-background/95');
+            } else {
+                nav.classList.remove('shadow-sm');
+                nav.classList.remove('bg-background/95');
+            }
+        });
+
+        // Hover effect for citizen chips
+        const chips = document.querySelectorAll('.flex.flex-wrap span');
+        chips.forEach(chip => {
+            chip.addEventListener('mouseenter', () => {
+                chip.style.transform = 'translateY(-2px)';
+                chip.style.transition = 'all 0.2s ease';
+                chip.classList.add('shadow-sm');
+            });
+            chip.addEventListener('mouseleave', () => {
+                chip.style.transform = 'translateY(0)';
+                chip.classList.remove('shadow-sm');
+            });
+        });
+    </script>
+</body></html>
