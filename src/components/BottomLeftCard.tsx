@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Users } from 'lucide-react';
 
-export default function BottomLeftCard() {
+export default function BottomLeftCard({ count }: { count: number }) {
   return (
     <motion.div
       initial={{ x: -20, opacity: 0 }}
@@ -13,7 +13,7 @@ export default function BottomLeftCard() {
         <div className="flex items-center gap-1.5 md:gap-2">
           <Users className="w-5 h-5 md:w-6 md:h-6 text-[#FAF6F0]" />
           <span className="text-2xl md:text-3xl font-normal text-[#FAF6F0] tracking-tight">
-            21
+            {count}
           </span>
         </div>
         <span className="text-[10px] md:text-[12px] font-normal text-[#EAE0D5]/70 uppercase tracking-wider">

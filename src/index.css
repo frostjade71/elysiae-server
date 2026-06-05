@@ -240,6 +240,10 @@ main h2.text-headline-md::after {
   letter-spacing: 0.05em;
 }
 
+@utility shadow-dark-text {
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
 .hero-section .text-display-lg,
 .hero-section.md\:text-display-lg,
 .hero-section .md\:text-display-lg {

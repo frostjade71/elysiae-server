@@ -101,7 +101,8 @@ export default function App() {
     "FrostTzy",
     "ManhattanCafe",
     "ItshpesoJ",
-    "oaklog456"
+    "oaklog456",
+    ".shadowdj"
   ];
 
   const sections = [
@@ -156,7 +157,7 @@ export default function App() {
       </div>
 
       {/* Full-Screen Immersive Background Hero */}
-      <Hero />
+      <Hero citizensCount={citizens.length} />
 
       <main className="max-w-[1120px] mx-auto px-gutter md:px-0 pt-12 pb-stack-lg">
 
