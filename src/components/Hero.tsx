@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import HeroBadge from './HeroBadge';
 import BottomLeftCard from './BottomLeftCard';
 import BottomRightCorner from './BottomRightCorner';
-import heroImage from '../assets/images/4773165.jpg';
+import heroImage from '../assets/images/newherobg.png';
 
 export default function Hero() {
   return (
@@ -12,10 +12,12 @@ export default function Hero() {
         <img
           src={heroImage}
           alt="Elysian Nation Background"
-          className="absolute inset-0 w-full h-full object-cover object-[65%] lg:object-center z-0"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
         />
         {/* Dark overlay for text contrast */}
         <div className="absolute inset-0 bg-black/40 z-[1]" />
+        {/* Slight black fade at the bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/70 to-transparent z-[1] pointer-events-none" />
 
         {/* The Content Layer */}
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-start pb-24 md:pb-6 lg:pb-10">

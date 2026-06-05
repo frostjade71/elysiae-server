@@ -1,14 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, X } from 'lucide-react';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import journalImage from './assets/images/Cozy Enchanting room.jpg';
 import netherImage from './assets/images/2964545.jpg';
 import enchantedBookIcon from './assets/icons/24967-enchanted-book-minecraft.png';
+import elysianWrIcon from './assets/icons/elysian_wr.png';
+import methImage from './assets/images/meth.png';
+import seiImage from './assets/images/2026-06-04_22.56.17.png';
+import shiroImage from './assets/images/shiro.png';
+
+// Title block icons
+import ironBlockIcon from './assets/titles/85890-nether-quartz.png';
+import goldIcon from './assets/titles/45673-gold.png';
+import diamondIcon from './assets/titles/16469-diamond (1).png';
+import lapisIcon from './assets/titles/22752-lapis-lazuli.png';
+import amethystIcon from './assets/titles/62315-minecraft-amethyst.png';
+import redstoneIcon from './assets/titles/21630-redstone.png';
+import emeraldIcon from './assets/titles/185424-esmeralda (1).png';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
+  const [selectedJournal, setSelectedJournal] = useState<'season1' | 'season2'>('season2');
+  const [isJournalOpen, setIsJournalOpen] = useState(false);
   const isUserClick = useRef(false);
   const visibleSections = useRef(new Set<string>());
 
@@ -66,22 +81,27 @@ export default function App() {
   };
 
   const citizens = [
-    "__METH",
-    "__SEI",
-    "SEELENLIED",
-    "KSMIRACLE",
-    "XENOMITEGD",
+    "__Meth",
+    "__Sei",
+    "Seelenlied",
+    "KSMiracle (SaintSteins)",
+    "XenomiteGD",
     "ANAFFYTAFFY",
-    "KAIFLOXOL",
-    "MILKHYPE235",
-    "KLXYN",
-    "PEE_HIGHLIGHTER",
-    "GUNNERLEGEND",
-    "EDELWEISSE",
-    "TEIERI",
-    "EXTREMEMEN",
-    "HAKURIWAKURI",
-    "FROSTTZY"
+    "KaiFloxol",
+    "Milkhype235",
+    "Klxyn (Casey/Lobotomy)",
+    "Pee_Highlighter (Hyphen)",
+    "godOFfrobs",
+    "Gunnerlegend",
+    "MistressFrieren",
+    "Edelweisse",
+    "Teieri",
+    "ExtremeMen",
+    "Hakuriwakuri (Doatto)",
+    "FrostTzy",
+    "ManhattanCafe",
+    "ItshpesoJ",
+    "oaklog456"
   ];
 
   const sections = [
@@ -149,9 +169,17 @@ export default function App() {
           className="mb-stack-lg scroll-mt-24"
           id="chronicle"
         >
-          <motion.h2 variants={fadeInUp} className="font-headline-md text-headline-md text-center mb-stack-lg">
-            Origins of Aedes Elysiae
-          </motion.h2>
+          <div className="flex flex-col items-center mb-stack-lg">
+            <motion.img
+              variants={fadeInUp}
+              src={elysianWrIcon}
+              alt="Elysian Emblem"
+              className="w-16 h-16 object-contain mb-3"
+            />
+            <motion.h2 variants={fadeInUp} className="font-headline-md text-headline-md text-center">
+              Origins of Aedes Elysiae
+            </motion.h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
             {[
               { era: "ERA I", title: "KRP MCVerse S2 C2", desc: "The Unnamed Coalition: A strategic unification of Ynares and Ave Stellaris foundations." },
@@ -195,17 +223,20 @@ export default function App() {
               {
                 name: "__Meth",
                 role: "Founding Magistrate",
-                status: "(Currently inactive / busy IRL)"
+                status: "(Currently inactive / busy IRL)",
+                image: methImage
               },
               {
                 name: "__Sei",
                 role: "Vice-Magistrate & First Lady",
-                status: "(Currently busy IRL also)"
+                status: "(Currently busy IRL also)",
+                image: seiImage
               },
               {
                 name: "DefNotShiro",
                 role: "Co-founder",
-                status: "(Currently busy IRL also)"
+                status: "(Currently busy IRL also)",
+                image: shiroImage
               }
             ].map((founder) => (
               <motion.div
@@ -217,8 +248,12 @@ export default function App() {
                 }}
                 className="group relative bg-surface-container-lowest border border-secondary/20 p-stack-md transition-all duration-500 cursor-default"
               >
-                <div className="h-64 mb-4 bg-surface-dim flex items-center justify-center border border-dashed border-secondary/30 relative text-on-surface-variant/60 italic font-medium select-none">
-                  Need Images uwu
+                <div className="h-64 mb-4 overflow-hidden bg-surface-dim flex items-center justify-center border border-secondary/20 relative">
+                  <img
+                    src={founder.image}
+                    alt={founder.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface mb-1">{founder.name}</h3>
                 <p className="font-label-lg text-label-lg text-secondary uppercase tracking-widest mb-2">
@@ -299,52 +334,32 @@ export default function App() {
           <motion.h2 variants={fadeInUp} className="font-headline-md text-headline-md text-center mb-stack-lg">
             Titles of Elysian Nobility
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-            <motion.div variants={fadeInUp} className="flex flex-col gap-unit">
-              {[
-                { name: "seelenlied", title: "FRAU PLATIN", status: "1st Authority", dot: "bg-slate-300" },
-                { name: "XenomiteGD", title: "FRAU AURUM", status: "Vice-Magistrate", dot: "bg-amber-400" },
-                { name: "KSMiracle", title: "FRAU DIAMANT", status: "1st Edel", dot: "bg-sky-200" }
-              ].map((item) => (
-                <motion.div
-                  key={item.name}
-                  whileHover={{ x: 6, backgroundColor: "rgba(255,255,255,1)" }}
-                  className="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 transition-colors duration-200 cursor-default"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-2 h-2 rounded-full ${item.dot}`}></div>
-                    <div>
-                      <p className="font-headline-sm text-headline-sm leading-tight">{item.name}</p>
-                      <p className="font-label-sm text-label-sm text-secondary">{item.title}</p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-1">
+            {[
+              { name: "seelenlied", title: "FRAU PLATIN", status: "1st Authority", icon: ironBlockIcon, size: "w-6 h-6" },
+              { name: "XenomiteGD", title: "FRAU AURUM", status: "Vice-Magistrate", icon: goldIcon, size: "w-6 h-6" },
+              { name: "KSMiracle", title: "FRAU DIAMANT", status: "1st Edel", icon: diamondIcon, size: "w-5 h-5" },
+              { name: "ANAFFYTAFFY", title: "FRAU SAPHIR", status: "2nd Edel", icon: lapisIcon, size: "w-5 h-5" },
+              { name: "KaiFloxol", title: "FRAU AMÉTHYSTE", status: "3rd Edel", icon: amethystIcon, size: "w-5 h-5" },
+              { name: "Gunnerlegend", title: "FRAU RUBIN", status: "4th Edel", icon: redstoneIcon, size: "w-5 h-5" },
+              { name: "Pee_Highlighter", title: "FRAU JADE", status: "5th Edel", icon: emeraldIcon, size: "w-5 h-5" }
+            ].map((item) => (
+              <motion.div
+                key={item.name}
+                variants={fadeInUp}
+                whileHover={{ x: 6, backgroundColor: "rgba(255,255,255,1)" }}
+                className="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 transition-colors duration-200 cursor-default"
+              >
+                <div className="flex items-center gap-4">
+                  <img src={item.icon} alt={item.status} className={`${item.size} object-contain flex-shrink-0`} />
+                  <div>
+                    <p className="font-headline-sm text-headline-sm leading-tight">{item.name}</p>
+                    <p className="font-label-sm text-label-sm text-secondary">{item.title}</p>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant italic">{item.status}</span>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="flex flex-col gap-unit">
-              {[
-                { name: "ANAFFYTAFFY", title: "FRAU SAPHIR", status: "2nd Edel", dot: "bg-blue-600" },
-                { name: "KaiFloxol", title: "FRAU AMÉTHYSTE", status: "3rd Edel", dot: "bg-purple-500" },
-                { name: "Gunnerlegend", title: "FRAU RUBIN", status: "4th Edel", dot: "bg-rose-600" }
-              ].map((item) => (
-                <motion.div
-                  key={item.name}
-                  whileHover={{ x: 6, backgroundColor: "rgba(255,255,255,1)" }}
-                  className="flex items-center justify-between p-stack-sm border-b border-secondary/10 bg-white/40 transition-colors duration-200 cursor-default"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-2 h-2 rounded-full ${item.dot}`}></div>
-                    <div>
-                      <p className="font-headline-sm text-headline-sm leading-tight">{item.name}</p>
-                      <p className="font-label-sm text-label-sm text-secondary">{item.title}</p>
-                    </div>
-                  </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant italic">{item.status}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+                </div>
+                <span className="font-label-sm text-label-sm text-on-surface-variant italic">{item.status}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.section>
 
@@ -427,8 +442,8 @@ export default function App() {
           transition={{ duration: 0.8 }}
           className="mb-stack-lg"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-center bg-surface-container-lowest p-stack-lg border border-secondary/20 soft-whisper">
-            <div className="relative group overflow-hidden h-96">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-stack-lg items-stretch bg-surface-container-lowest p-stack-lg border border-secondary/20 soft-whisper">
+            <div className="relative group overflow-hidden h-96 md:h-auto">
               <motion.img
                 whileHover={{ scale: 1.04 }}
                 transition={{ duration: 0.6 }}
@@ -437,23 +452,266 @@ export default function App() {
                 src={journalImage}
               />
             </div>
-            <div>
-              <h2 className="font-headline-md text-headline-md text-on-surface mb-stack-sm">
-                <img src={enchantedBookIcon} alt="Enchanted Book" className="w-9 h-9 object-contain inline-block align-middle mr-3" />
-                Magistrate's Journal
-              </h2>
-              <p className="font-label-lg text-label-lg text-secondary mb-4">SEASON 1 ENTRIES</p>
-              <div className="space-y-4 font-body-md text-body-md text-on-surface-variant italic leading-relaxed">
-                <p>
-                  “we need a journal rq”
-                </p>
-              </div>
-              <motion.button
-                whileHover={{ x: 6 }}
-                className="mt-8 font-label-lg text-label-lg text-secondary flex items-center gap-2 transition-transform"
-              >
-                Read full entries <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </motion.button>
+            <div className="relative overflow-hidden flex flex-col justify-center min-h-[350px]">
+              <AnimatePresence mode="wait">
+                {!isJournalOpen ? (
+                  <motion.div
+                    key="preview"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <h2 className="font-headline-md text-headline-md text-on-surface mb-6 flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 text-center md:text-left">
+                      <img src={enchantedBookIcon} alt="Enchanted Book" className="w-9 h-9 object-contain flex-shrink-0" />
+                      <span>Magistrate's Journal</span>
+                    </h2>
+                    
+                    {/* Tabs / Selector Buttons */}
+                    <div className="flex flex-wrap gap-2.5 mb-6">
+                      <button
+                        onClick={() => setSelectedJournal('season2')}
+                        className={`px-4 py-2 text-xs font-label-lg uppercase tracking-wider border transition-all duration-300 cursor-pointer ${
+                          selectedJournal === 'season2'
+                            ? 'bg-secondary text-white border-secondary font-semibold'
+                            : 'border-secondary/20 text-secondary hover:border-secondary/55'
+                        }`}
+                      >
+                        KRP: MCVerse Season 2
+                      </button>
+                      <button
+                        onClick={() => setSelectedJournal('season1')}
+                        className={`px-4 py-2 text-xs font-label-lg uppercase tracking-wider border transition-all duration-300 cursor-pointer ${
+                          selectedJournal === 'season1'
+                            ? 'bg-secondary text-white border-secondary font-semibold'
+                            : 'border-secondary/20 text-secondary hover:border-secondary/55'
+                        }`}
+                      >
+                        Kupal Community SMP Season 1
+                      </button>
+                    </div>
+
+                    <p className="text-[11px] font-label-sm uppercase tracking-wider text-secondary/60 mb-3 block">
+                      Date Created: {selectedJournal === 'season2' ? 'Aug 3, 2025' : 'May 5, 2026'}
+                    </p>
+
+                    <div className="space-y-4 font-body-md text-body-md text-on-surface-variant italic leading-relaxed min-h-[80px]">
+                      {selectedJournal === 'season2' ? (
+                        <p>
+                          “Welcome to Season 2!” This document will act as my journal as I, seelenlied, play through the 2nd season of KRP: MCVerse.
+                        </p>
+                      ) : (
+                        <p>
+                          “Welcome! To a fresh start, to a brand new world!” New name, new world, same community, same map. This document shall act as my journal as I, seelenlied, play through the 1st season of the Kupal Community SMP.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <motion.button
+                      whileHover={{ x: 6 }}
+                      onClick={() => setIsJournalOpen(true)}
+                      className="mt-8 font-label-lg text-label-lg text-secondary flex items-center gap-2 transition-transform cursor-pointer font-semibold"
+                    >
+                      Read full entries <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    </motion.button>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="full"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative flex flex-col h-full w-full"
+                  >
+                    {/* Fixed Close Button */}
+                    <button
+                      onClick={() => setIsJournalOpen(false)}
+                      className="absolute top-0 right-6 z-30 bg-[#1C1C1C] hover:bg-[#2A2A2A] text-white p-2 cursor-pointer transition-all duration-200 rounded-full shadow-md border border-black/10 flex items-center justify-center"
+                      aria-label="Close Journal"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+
+                    <div className="flex flex-col h-full max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
+                      <div className="mb-4 border-b border-secondary/15 pb-2 pr-24">
+                        <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                          {selectedJournal === 'season2' ? 'KRP: MCVerse Season 2' : 'Kupal Community SMP Season 1'}
+                        </h3>
+                        <p className="font-label-sm text-label-sm text-secondary">Magistrate seelenlied's Journal</p>
+                      </div>
+                      
+                      {selectedJournal === 'season2' ? (
+                        <div className="space-y-6 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                          <div>
+                            <p className="font-semibold text-on-surface italic text-base mb-2">“Welcome to Season 2!”</p>
+                            <p className="italic">This document will act as my journal as I, seelenlied, play through the 2nd season of KRP: MCVerse.</p>
+                          </div>
+
+                          <div className="border-l-2 border-secondary/25 pl-4 py-1">
+                            <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider mb-2">The New Team: Ave Stellaris</p>
+                            <p className="font-semibold mb-2">Members:</p>
+                            <ul className="list-disc pl-4 space-y-1 mb-3">
+                              <li>Milkhype235 (leader)</li>
+                              <li>XenomiteGD</li>
+                              <li>PosViriSerb</li>
+                              <li>__Hikaruu</li>
+                              <li>godOFrobs</li>
+                              <li>RissMov</li>
+                              <li>NewForm</li>
+                              <li>seelenlied</li>
+                              <li>Pee_Highlighter</li>
+                            </ul>
+                            <p className="italic mb-2">“Ave Stellaris” meaning “hail the stars”. We are the celestial voyagers, the Herrschers, situated in Samar as our homebase.</p>
+                            <p className="mb-2"><span className="font-medium text-on-surface">Our motto:</span> “Hail to our song, hail to the stars, for we are born to inherit the universe.”</p>
+                            <p className="mb-3">
+                              <span className="font-medium text-on-surface">Theme song:</span>{' '}
+                              <a href="https://youtu.be/cXiYaB50O0k" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline break-all">
+                                https://youtu.be/cXiYaB50O0k
+                              </a>
+                            </p>
+                            <div className="text-[11px] grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-secondary/10">
+                              <div><span className="font-medium">Milkhype:</span> Queen of the Herrschers</div>
+                              <div><span className="font-medium">Xenomite:</span> Sentinel Herrscher</div>
+                              <div><span className="font-medium">PosViriSerb:</span> Herrscher of Kleptomancy</div>
+                              <div><span className="font-medium">Frobs:</span> Herrscher of Serenity</div>
+                              <div><span className="font-medium">Hikaruu:</span> Herrscher of Wealth</div>
+                              <div><span className="font-medium">RissMov:</span> Herrscher of Solitude</div>
+                              <div><span className="font-medium">NewForm:</span> Herrscher of the Ancients</div>
+                              <div><span className="font-medium">Seelenlied:</span> Herrscher of The Void</div>
+                              <div><span className="font-medium">Pee_Highlighter:</span> Nameless Herrscher</div>
+                            </div>
+                          </div>
+
+                          <div className="space-y-4 pt-2 border-t border-secondary/10">
+                            <div>
+                              <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">August 6 2025 - Griefing Incident</p>
+                              <p className="mt-1">
+                                Our base became subject to a grief by unknown players. Our current hypothesis is that these players are using alt accounts since Samar is a huge island and they have to be people who know us or people who have played since season 1 to target our base specifically. The admins; Rhongobongoooo (former Deepslate leader), Expo, DerukaA, Ringo, and Koshi launched a brief investigation to find the culprits and promptly ban them. What makes this whole situation all the more confusing is why they’d target us in the first place? RissMov’s house was untouched so the griefers probably never saw it. We salvaged whatever we could then moved to Hikaru’s suggested location and are now recuperating our losses.
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">August 7 2025 - Trial Chamber</p>
+                              <p className="mt-1">
+                                Xeno found a trial chamber right underneath our new base therefore we both decided to check it out. He found a Sharpness V enchanted book and we also got a few bad omen potions. Xeno immediately drank one of his and we died of being overwhelmed by zombies (also because of the server tick rate dipping due to the amount of players online at this point). We had to get Hikaru to come help us get our stuff back.
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">August 8 - 9 - Uneventful</p>
+                              <p className="mt-1">
+                                Not much these days other than the fact that we received a new member: Pee_Highlighter. He shall henceforth be known as the Nameless Herrscher.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-6 font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                          <div>
+                            <p className="font-semibold text-on-surface italic text-base mb-2">“Welcome! To a fresh start, to a brand new world!”</p>
+                            <p className="italic">New name, new world, same community, same map. This document shall act as my journal as I, seelenlied, play through the 1st season of the Kupal Community SMP.</p>
+                          </div>
+
+                          <div>
+                            <p className="mt-1">
+                              From KRP MCVerse Season 2 Chapter 2, a coalition was born between the players of Ynares Compound and the remnants of Ave Stellaris; this new coalition had no name until Season 3 where it was called Aedes Elysiae. From then on, this faction of ours has bore this name.
+                            </p>
+                          </div>
+
+                          <div className="border-l-2 border-secondary/25 pl-4 py-1 space-y-2">
+                            <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Founders</p>
+                            <ul className="list-disc pl-4 space-y-1">
+                              <li><span className="font-medium text-on-surface">__Meth</span> - Current Magistrate (inactive/busy irl)</li>
+                              <li><span className="font-medium text-on-surface">__Sei</span> - Current Vice-Magistrate and First Lady (busy irl also)</li>
+                              <li><span className="font-medium text-on-surface">DefNotShiro</span> - Co-founder (busy irl also)</li>
+                            </ul>
+                            <p className="italic">
+                              Due to the founding trio being busy irl, Meth and Sei appointed me as Standing Magistrate to take charge during their absence. They have also appointed XenomiteGD as Standing Vice-Magistrate to help me. Below is Sei’s decree, affirming our positions.
+                            </p>
+                          </div>
+
+                          <div className="bg-surface-variant/40 border border-secondary/15 p-4 rounded italic space-y-2">
+                            <p>“I hereby decree seelenlied the acting founder of Elysiae (former Ynares) starting now and until further notice.</p>
+                            <p>All decisions and questions regarding Elysiae shall now be under his concern</p>
+                            <p>Furthermore, As Elysiae wasn’t built alone, but with the friends and hard-work everyone has put in. Our new Founder will need assistance,</p>
+                            <p>Acting Co-Founder shall now be XenomiteGD. replacing __Meth</p>
+                            <p className="font-semibold text-secondary">People of Elysiae, Our story has only begun! The memories live in the people of Elysiae, Long Live Elysia!”</p>
+                            <p className="text-right font-label-sm text-label-sm text-secondary not-italic">— __Sei (former Elysiae Founder)</p>
+                          </div>
+
+                          <div className="space-y-2">
+                            <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Members</p>
+                            <div className="flex flex-wrap gap-1.5 text-[11px]">
+                              {citizens.map((citizen) => (
+                                <span key={citizen} className="bg-surface-container-low px-2 py-0.5 border border-secondary/5 rounded">
+                                  {citizen}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="space-y-4 pt-2 border-t border-secondary/10">
+                            <div>
+                              <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Establishment of the Council</p>
+                              <p className="mt-1">
+                                For my first act as Standing Magistrate, I have decided to establish a council for advisors to aid and guide me in this endeavor.
+                              </p>
+                              <p className="mt-2">
+                                The Hoshigumi Council is the advisory council of Aedes Elysiae consisting of five individuals, these individuals are referred to as Edels (nobles). They are to support the current Standing Magistrate during his tenure as ruler of Aedes Elysiae.
+                              </p>
+                              <ul className="list-decimal pl-5 mt-2 space-y-1">
+                                <li>1st Edel - KSMiracle (SaintSteins)</li>
+                                <li>2nd Edel - ANAFFYTAFFY</li>
+                                <li>3rd Edel - KaiFloxol</li>
+                                <li>4th Edel - Gunnerlegend</li>
+                                <li>5th Edel - Pee_Highlighter</li>
+                              </ul>
+                            </div>
+
+                            <div className="pt-2 border-t border-secondary/10">
+                              <p className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Aristocratic Titles</p>
+                              <p className="mt-1 mb-2">
+                                Each Edel is the recipient of an aristocratic title which expresses their standing, authority, and responsibility, as is myself and my Vice-Magistrate.
+                              </p>
+                              <div className="space-y-2 text-xs">
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Platin</span> - seelenlied
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Platinum denotes the Magistrate as holding the first and highest authority in the order)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Aurum</span> - XenomiteGD
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Gold denotes the Vice-Magistrate)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Diamant</span> - KSMiracle
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Diamond denotes the 1st Edel)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Saphir</span> - ANAFFYTAFFY
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Sapphire denotes the 2nd Edel)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Améthyste</span> - KaiFloxol
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Amethyst denotes the 3rd Edel)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Rubin</span> - Gunnerlegend
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Ruby denotes the 4th Edel)</p>
+                                </div>
+                                <div>
+                                  <span className="font-semibold text-on-surface">Frau Jade</span> - Pee_Highlighter
+                                  <p className="text-on-surface-variant/80 italic pl-4">(Jade denotes the 5th Edel)</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </motion.section>

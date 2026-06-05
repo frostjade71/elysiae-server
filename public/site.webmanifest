@@ -1,7 +1,6 @@
 {
-  "name": "Aedes Elysiae",
-  "short_name": "Elysiae",
-  "description": "An Elysian Nation — The Aristocratic Chronicle of the Aedes Nation",
+  "name": "MyWebSite",
+  "short_name": "MySite",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,8 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#1C1C1C",
-  "background_color": "#FAF6F0",
-  "display": "standalone",
-  "start_url": "/"
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }

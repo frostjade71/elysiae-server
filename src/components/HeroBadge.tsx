@@ -7,7 +7,7 @@ export default function HeroBadge() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="flex items-center gap-2.5 mb-4 select-none font-helvetica justify-center"
+      className="flex flex-col md:flex-row items-center gap-2 md:gap-2.5 mb-4 select-none font-helvetica justify-center text-center"
     >
       <img
         src={blockIcon}

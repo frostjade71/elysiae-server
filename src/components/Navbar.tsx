@@ -43,7 +43,12 @@ export default function Navbar({ activeSection, setActiveSection, sections }: Na
       </ul>
 
       {/* Mobile Logo */}
-      <div className="md:hidden">
+      <div className="md:hidden flex items-center gap-2">
+        <img
+          src="/favicon.svg"
+          alt="Aedes Elysiae Icon"
+          className="w-5 h-5 object-contain"
+        />
         <span
           className={`font-regular tracking-tighter text-xl drop-shadow-sm transition-colors duration-300 ${
             activeSection === 'home' ? 'text-[#FAF6F0]' : 'text-[#1C1C1C]'
