@@ -5,15 +5,23 @@ interface NavbarProps {
   activeSection: string;
   setActiveSection: (id: string) => void;
   sections: Array<{ id: string; label: string; href: string }>;
+  isLoggedIn: boolean;
+  onLoginClick: () => void;
+  onPanelClick: () => void;
 }
 
-export default function Navbar({ activeSection, setActiveSection, sections }: NavbarProps) {
+export default function Navbar({
+  activeSection,
+  setActiveSection,
+  sections,
+  isLoggedIn,
+  onLoginClick,
+  onPanelClick
+}: NavbarProps) {
   return (
     <nav className="flex items-center justify-between py-6 px-6 md:px-10 w-full relative z-10 font-helvetica">
-      {/* Left Side (hidden spacer for centering) */}
       <div className="flex-1 hidden md:block" />
 
-      {/* Center Menu */}
       <ul className="hidden md:flex items-center gap-2 text-white/80 font-normal text-sm bg-black/55 backdrop-blur-md border border-white/10 rounded-full p-1.5 shadow-lg">
         {sections.map((sec) => (
           <li
@@ -24,7 +32,6 @@ export default function Navbar({ activeSection, setActiveSection, sections }: Na
             <a href={sec.href} className={`relative z-10 ${activeSection === sec.id ? 'font-semibold text-white' : ''}`}>
               {sec.label}
             </a>
-            {/* Show dynamic active background pill in hero nav */}
             {activeSection === sec.id && (
               <motion.div
                 layoutId="heroNavActiveBg"
@@ -42,34 +49,45 @@ export default function Navbar({ activeSection, setActiveSection, sections }: Na
         ))}
       </ul>
 
-      {/* Mobile Logo */}
-      <div className="md:hidden flex items-center gap-2">
+      <div className="md:hidden flex items-center">
         <img
           src="/favicon.svg"
           alt="Aedes Elysiae Icon"
-          className="w-5 h-5 object-contain"
+          className="w-7 h-7 object-contain"
         />
-        <span
-          className={`font-regular tracking-tighter text-xl drop-shadow-sm transition-colors duration-300 ${
-            activeSection === 'home' ? 'text-[#FAF6F0]' : 'text-[#1C1C1C]'
-          }`}
-        >
-          Aedes Elysiae
-        </span>
       </div>
 
-      {/* Right Button */}
-      <div className="flex-1 flex justify-end">
+      <div className="flex-1 flex justify-end items-center gap-3">
+        {isLoggedIn ? (
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onPanelClick}
+            className="flex items-center bg-black/55 text-white border border-white/10 rounded-full px-4 py-1.5 md:py-2 gap-1.5 hover:bg-black/75 transition-colors group shadow-sm backdrop-blur-sm cursor-pointer text-xs md:text-sm font-semibold pointer-events-auto"
+          >
+            Panel
+          </motion.button>
+        ) : (
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onLoginClick}
+            className="flex items-center bg-black/55 text-white border border-white/10 rounded-full px-4 py-1.5 md:py-2 gap-1.5 hover:bg-black/75 transition-colors group shadow-sm backdrop-blur-sm cursor-pointer text-xs md:text-sm font-normal pointer-events-auto"
+          >
+            Login
+          </motion.button>
+        )}
+
         <a
           href="https://discord.gg/gSD4ZMQ6KR"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block"
+          className="inline-block pointer-events-auto"
         >
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="flex items-center bg-black/50 text-white border border-white/10 rounded-full pl-2 pr-4 md:pr-6 py-1.5 md:py-2 gap-2 md:gap-3 hover:bg-black/70 transition-colors group shadow-sm backdrop-blur-sm cursor-pointer"
+            className="flex items-center bg-[#5865F2] text-white border border-white/10 rounded-full pl-2 pr-4 md:pr-6 py-1.5 md:py-2 gap-2 md:gap-3 hover:bg-[#4752C4] transition-colors group shadow-sm backdrop-blur-sm cursor-pointer"
           >
             <div className="bg-white/20 p-1 md:p-1.5 rounded-full flex items-center justify-center">
               <svg className="w-4 h-4 md:w-5 md:h-5 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

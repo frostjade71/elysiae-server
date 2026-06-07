@@ -5,13 +5,15 @@ import Hero from './components/Hero';
 import Navbar from './components/Navbar';
 import journalImage from './assets/images/Cozy Enchanting room.jpg';
 import netherImage from './assets/images/2964545.jpg';
-import enchantedBookIcon from './assets/icons/24967-enchanted-book-minecraft.png';
+import enchantedBookIcon from './assets/icons/EnchantedBookNew.gif';
 import elysianWrIcon from './assets/icons/elysian_wr.png';
 import methImage from './assets/images/meth.png';
 import seiImage from './assets/images/2026-06-04_22.56.17.png';
 import shiroImage from './assets/images/shiro.png';
+import { subscribeToAuthChanges, subscribeToCitizens, logoutStaff } from './firebase';
+import LoginModal from './components/LoginModal';
+import StaffPanel from './components/StaffPanel';
 
-// Title block icons
 import ironBlockIcon from './assets/titles/85890-nether-quartz.png';
 import goldIcon from './assets/titles/45673-gold.png';
 import diamondIcon from './assets/titles/16469-diamond (1).png';
@@ -27,7 +29,43 @@ export default function App() {
   const isUserClick = useRef(false);
   const visibleSections = useRef(new Set<string>());
 
-  // Scroll-spy: observe each section and update activeSection in real-time
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isStaffPanelOpen, setIsStaffPanelOpen] = useState(false);
+  const [citizens, setCitizens] = useState<string[]>(() => {
+    try {
+      const cached = localStorage.getItem('elysiae_citizens');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    const unsubscribe = subscribeToCitizens((newCitizens) => {
+      setCitizens(newCitizens);
+      try {
+        localStorage.setItem('elysiae_citizens', JSON.stringify(newCitizens));
+      } catch (err) {
+        console.error('Failed to cache citizens:', err);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthChanges((user) => {
+      setIsLoggedIn(!!user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleCitizenAdded = () => {};
+
+  const handleLogout = async () => {
+    await logoutStaff();
+  };
+
   useEffect(() => {
     const sectionIds = ['home', 'chronicle', 'decrees', 'council'];
     const elements = sectionIds
@@ -38,10 +76,8 @@ export default function App() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Skip observer updates briefly after a user click
         if (isUserClick.current) return;
 
-        // Track which sections are currently visible
         for (const entry of entries) {
           if (entry.isIntersecting) {
             visibleSections.current.add(entry.target.id);
@@ -50,7 +86,6 @@ export default function App() {
           }
         }
 
-        // Pick the topmost visible section (by DOM order)
         for (const id of sectionIds) {
           if (visibleSections.current.has(id)) {
             setActiveSection(id);
@@ -60,7 +95,6 @@ export default function App() {
       },
       {
         threshold: [0.05, 0.2, 0.4],
-        // Require sections to be well into the viewport
         rootMargin: '-10% 0px -35% 0px',
       }
     );
@@ -70,40 +104,13 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  // When user clicks a nav item, briefly suppress the observer
   const handleSetActiveSection = (id: string) => {
     isUserClick.current = true;
     setActiveSection(id);
-    // Allow observer to take back over after scroll settles
     setTimeout(() => {
       isUserClick.current = false;
     }, 1000);
   };
-
-  const citizens = [
-    "__Meth",
-    "__Sei",
-    "Seelenlied",
-    "KSMiracle (SaintSteins)",
-    "XenomiteGD",
-    "ANAFFYTAFFY",
-    "KaiFloxol",
-    "Milkhype235",
-    "Klxyn (Casey/Lobotomy)",
-    "Pee_Highlighter (Hyphen)",
-    "godOFfrobs",
-    "Gunnerlegend",
-    "MistressFrieren",
-    "Edelweisse",
-    "Teieri",
-    "ExtremeMen",
-    "Hakuriwakuri (Doatto)",
-    "FrostTzy",
-    "ManhattanCafe",
-    "ItshpesoJ",
-    "oaklog456",
-    ".shadowdj"
-  ];
 
   const sections = [
     { id: 'home', label: 'Home', href: '#' },
@@ -112,7 +119,6 @@ export default function App() {
     { id: 'council', label: 'Councils', href: '#council' }
   ];
 
-  // Framer Motion presets for clean premium animations
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -145,23 +151,23 @@ export default function App() {
     <div className="text-on-background min-h-screen selection:bg-secondary-container selection:text-secondary relative font-sans overflow-x-hidden">
       <div className="fixed inset-0 paper-grain opacity-50 z-[-1]"></div>
 
-      {/* Sticky/Fixed Navbar Container */}
       <div className="fixed top-0 left-0 right-0 z-50 p-3 md:p-5 pointer-events-none">
         <div className="w-full max-w-[1536px] mx-auto pointer-events-auto">
           <Navbar
             activeSection={activeSection}
             setActiveSection={handleSetActiveSection}
             sections={sections}
+            isLoggedIn={isLoggedIn}
+            onLoginClick={() => setIsLoginModalOpen(true)}
+            onPanelClick={() => setIsStaffPanelOpen(true)}
           />
         </div>
       </div>
 
-      {/* Full-Screen Immersive Background Hero */}
       <Hero citizensCount={citizens.length} />
 
       <main className="max-w-[1120px] mx-auto px-gutter md:px-0 pt-12 pb-stack-lg">
 
-        {/* Origins & Lore Section */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -266,7 +272,6 @@ export default function App() {
           </div>
         </motion.section>
 
-        {/* Leadership Transition (The Decree) */}
         <motion.section
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -422,7 +427,9 @@ export default function App() {
             {citizens.map((citizen) => (
               <motion.span
                 key={citizen}
-                variants={fadeInUp}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 whileHover={{ y: -4, scale: 1.05, boxShadow: "0 4px 10px rgba(51, 51, 51, 0.08)" }}
                 className="bg-surface-variant text-on-surface-variant px-4 py-2 font-label-lg text-label-lg border border-secondary/5 transition-all duration-200 hover:bg-white cursor-default select-none"
               >
@@ -799,6 +806,32 @@ export default function App() {
           >
             <ArrowUp className="w-5 h-5" />
           </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Staff Authentication & Portal Components */}
+      <AnimatePresence>
+        {isLoginModalOpen && (
+          <LoginModal
+            isOpen={isLoginModalOpen}
+            onClose={() => setIsLoginModalOpen(false)}
+            onLoginSuccess={() => {
+              setIsLoggedIn(true);
+              setIsStaffPanelOpen(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isStaffPanelOpen && (
+          <StaffPanel
+            isOpen={isStaffPanelOpen}
+            onClose={() => setIsStaffPanelOpen(false)}
+            onLogout={handleLogout}
+            citizens={citizens}
+            onCitizenAdded={handleCitizenAdded}
+          />
         )}
       </AnimatePresence>
     </div>
